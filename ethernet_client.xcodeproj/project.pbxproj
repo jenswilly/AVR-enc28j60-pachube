@@ -1,0 +1,232 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXFileReference section */
+		4765F50514FD8BCE00915C56 /* pachube_key.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = pachube_key.h; path = ../pachube_key.h; sourceTree = "<group>"; };
+		4774891414F0568700529684 /* ip_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ip_config.h; sourceTree = "<group>"; };
+		4774891514F0568700529684 /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		4774891814F0568700529684 /* dhcp_client.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dhcp_client.c; sourceTree = "<group>"; };
+		4774891914F0568700529684 /* dhcp_client.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dhcp_client.h; sourceTree = "<group>"; };
+		4774891A14F0568700529684 /* dnslkup.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dnslkup.c; sourceTree = "<group>"; };
+		4774891B14F0568700529684 /* dnslkup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dnslkup.h; sourceTree = "<group>"; };
+		4774891C14F0568700529684 /* enc28j60.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = enc28j60.c; sourceTree = "<group>"; };
+		4774891D14F0568700529684 /* enc28j60.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = enc28j60.h; sourceTree = "<group>"; };
+		4774891E14F0568700529684 /* ip_arp_udp_tcp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ip_arp_udp_tcp.c; sourceTree = "<group>"; };
+		4774891F14F0568700529684 /* ip_arp_udp_tcp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ip_arp_udp_tcp.h; sourceTree = "<group>"; };
+		4774892014F0568700529684 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		4774892114F0568700529684 /* net.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = net.h; sourceTree = "<group>"; };
+		4774892214F0568700529684 /* timeout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = timeout.h; sourceTree = "<group>"; };
+		4774892314F0568700529684 /* websrv_help_functions.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = websrv_help_functions.c; sourceTree = "<group>"; };
+		4774892414F0568700529684 /* websrv_help_functions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = websrv_help_functions.h; sourceTree = "<group>"; };
+		4774892814F0581700529684 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		477488F614F0540900529684 = {
+			isa = PBXGroup;
+			children = (
+				4774892814F0581700529684 /* Makefile */,
+				4774891414F0568700529684 /* ip_config.h */,
+				4765F50514FD8BCE00915C56 /* pachube_key.h */,
+				4774891514F0568700529684 /* main.c */,
+				4774891714F0568700529684 /* tuxgraphics */,
+			);
+			sourceTree = "<group>";
+		};
+		4774891714F0568700529684 /* tuxgraphics */ = {
+			isa = PBXGroup;
+			children = (
+				4774891814F0568700529684 /* dhcp_client.c */,
+				4774891914F0568700529684 /* dhcp_client.h */,
+				4774891A14F0568700529684 /* dnslkup.c */,
+				4774891B14F0568700529684 /* dnslkup.h */,
+				4774891C14F0568700529684 /* enc28j60.c */,
+				4774891D14F0568700529684 /* enc28j60.h */,
+				4774891E14F0568700529684 /* ip_arp_udp_tcp.c */,
+				4774891F14F0568700529684 /* ip_arp_udp_tcp.h */,
+				4774892014F0568700529684 /* Makefile */,
+				4774892114F0568700529684 /* net.h */,
+				4774892214F0568700529684 /* timeout.h */,
+				4774892314F0568700529684 /* websrv_help_functions.c */,
+				4774892414F0568700529684 /* websrv_help_functions.h */,
+			);
+			path = tuxgraphics;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXLegacyTarget section */
+		477488FD14F0540900529684 /* build */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(TARGET_NAME)";
+			buildConfigurationList = 4774890014F0540900529684 /* Build configuration list for PBXLegacyTarget "build" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			buildWorkingDirectory = "$(SRCROOT)";
+			dependencies = (
+			);
+			name = build;
+			passBuildSettingsInEnvironment = 1;
+			productName = jwj_client;
+		};
+		4774892914F05E2600529684 /* fuse */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(TARGET_NAME)";
+			buildConfigurationList = 4774892A14F05E2600529684 /* Build configuration list for PBXLegacyTarget "fuse" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			buildWorkingDirectory = "$(SRCROOT)";
+			dependencies = (
+			);
+			name = fuse;
+			passBuildSettingsInEnvironment = 1;
+			productName = jwj_client;
+		};
+		4774892D14F05E3100529684 /* flash */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(TARGET_NAME)";
+			buildConfigurationList = 4774892E14F05E3100529684 /* Build configuration list for PBXLegacyTarget "flash" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			buildWorkingDirectory = "$(SRCROOT)";
+			dependencies = (
+			);
+			name = flash;
+			passBuildSettingsInEnvironment = 1;
+			productName = jwj_client;
+		};
+/* End PBXLegacyTarget section */
+
+/* Begin PBXProject section */
+		477488F814F0540900529684 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+				ORGANIZATIONNAME = "Greener Pastures";
+			};
+			buildConfigurationList = 477488FB14F0540900529684 /* Build configuration list for PBXProject "ethernet_client" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 477488F614F0540900529684;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				477488FD14F0540900529684 /* build */,
+				4774892914F05E2600529684 /* fuse */,
+				4774892D14F05E3100529684 /* flash */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+		477488FE14F0540900529684 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PATH = "$(PATH):/usr/local/CrossPack-AVR/bin";
+			};
+			name = Debug;
+		};
+		477488FF14F0540900529684 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PATH = "$(PATH):/usr/local/CrossPack-AVR/bin";
+			};
+			name = Release;
+		};
+		4774890114F0540900529684 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		4774890214F0540900529684 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		4774892B14F05E2600529684 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = fuse;
+			};
+			name = Debug;
+		};
+		4774892C14F05E2600529684 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = fuse;
+			};
+			name = Release;
+		};
+		4774892F14F05E3100529684 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = flash;
+			};
+			name = Debug;
+		};
+		4774893014F05E3100529684 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = flash;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		477488FB14F0540900529684 /* Build configuration list for PBXProject "ethernet_client" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				477488FE14F0540900529684 /* Debug */,
+				477488FF14F0540900529684 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4774890014F0540900529684 /* Build configuration list for PBXLegacyTarget "build" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4774890114F0540900529684 /* Debug */,
+				4774890214F0540900529684 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4774892A14F05E2600529684 /* Build configuration list for PBXLegacyTarget "fuse" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4774892B14F05E2600529684 /* Debug */,
+				4774892C14F05E2600529684 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4774892E14F05E3100529684 /* Build configuration list for PBXLegacyTarget "flash" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4774892F14F05E3100529684 /* Debug */,
+				4774893014F05E3100529684 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 477488F814F0540900529684 /* Project object */;
+}

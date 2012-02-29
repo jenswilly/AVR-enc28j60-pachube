@@ -76,7 +76,7 @@ int readTemp()
 	
 	ADCSRA |= (1<<ADSC);			// Start single conversion
 	while( ADCSRA & (1<<ADSC) );	// Wait until conversion is done
-	temp = (ADC - 125) * 1075;		// Get ADC value and convert to temperature
+	temp = ADC;						// Get ADC value and convert to temperature
 	return temp;
 }
 
@@ -85,23 +85,40 @@ int readTemp()
 void init_cnt2(void)
 {
 	cnt2step=0;
-	PRR&=~(1<<PRTIM2); // write power reduction register to zero
-	TIMSK2=(1<<OCIE2A); // compare match on OCR2A
-	TCNT2=0;  // init counter
-	OCR2A=244; // value to compare against
-	TCCR2A=(1<<WGM21); // do not change any output pin, clear at compare match
-	// divide clock by 1024: 12.5MHz/128=12207 Hz
-	TCCR2B=(1<<CS22)|(1<<CS21)|(1<<CS20); // clock divider, start counter
-	// 12207/244=50Hz
+	PRR &= ~(1<<PRTIM2);	// write power reduction register to zero
+	TIMSK2 = (1<<OCIE2A);	// compare match on OCR2A
+	TCNT2 = 0;				// init counter
+	OCR2A = 156;			// value to compare against
+	TCCR2A = (1<<WGM21);	// do not change any output pin, clear at compare match
+	
+	// divide clock by 1024: 8MHz/1024=12207 Hz
+	TCCR2B = (1<<CS22)|(1<<CS21)|(1<<CS20); // clock divider, start counter
+
+	/* Prescaler and OCR is calculated like this:
+	 * Frequency (f) is 1/time required (T)
+	 * T is time per tick (TPT) * ticks, so
+	 * ticks is T / TPT per ticks
+	 * TPT is 1 / (Clk / prescaler) => prescaler/Clk, so
+	 * ticks is T / (prescaler/clk) => T * clk / prescaler
+	 *
+	 * For a frequency of 50 Hz (T=0.02) we try the different prescalers
+	 * and find that only 1024 will yeild a value for ticks that can fit in 8 bit
+	 * ticks = 0.02 * 8000000 / 1024 = 156.25
+	 * 
+	 * so OCR2A = 156
+	 */
+	 
 }
 
 // called when TCNT2==OCR2A
 // that is in 50Hz intervals
-ISR(TIMER2_COMPA_vect){
+ISR( TIMER2_COMPA_vect )
+{
 	cnt2step++;
-	if (cnt2step>50){
-                cnt2step=0;
-                sec++; // stepped every second
+	if( cnt2step >= 50 )
+	{
+		cnt2step=0;
+		sec++; // stepped every second
 	}
 }
 
@@ -278,7 +295,7 @@ int main(void)
 				web_client_attempts++;
 				
 				// Read temperature and format into string
-				sprintf( postdata, PSTR( "temp,%d" ), readTemp() );
+				sprintf_P( postdata, PSTR( "temp,%d" ), readTemp() );
 
 				// Send request
 				client_http_put( PSTR( "/v2/feeds/47970.csv" ), NULL, WEBSERVER_VHOST, PACHUBE_HEADER, postdata, &browserresult_callback, otherside_www_ip, gwmac );
@@ -293,7 +310,7 @@ int main(void)
 			}
 			
 			// If enough time has passed in "waiting" mode, go to "ready to send"
-			if( sec > 10 && start_web_client == 3 )
+			if( sec >= 10 && start_web_client == 3 )
 			{
 				start_web_client = 1;		// "Ready to send"
 			}

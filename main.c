@@ -18,6 +18,8 @@
 #include "tuxgraphics/net.h"
 #include "tuxgraphics/dnslkup.h"
 
+#include "DS1620.h"
+
 // In this file you define the header used for Pachube authentication in this form:
 // #define PACHUBE_HEADER PSTR( "x-pachubeapikey: Af0Ghij----YOUR_PACHUBE_API_KEY------HieW1A" )
 #include "../pachube_key.h"
@@ -295,8 +297,8 @@ int main(void)
 				web_client_attempts++;
 				
 				// Read temperature and format into string
-				sprintf_P( postdata, PSTR( "temp,%d" ), readTemp() );
-
+//				sprintf_P( postdata, PSTR( "temp,%d" ), readTemp() );
+				sprintf_P( postdata, PSTR( "temp,%.1f" ), readTempFrom1620() );
 				// Send request
 				client_http_put( PSTR( "/v2/feeds/47970.csv" ), NULL, WEBSERVER_VHOST, PACHUBE_HEADER, postdata, &browserresult_callback, otherside_www_ip, gwmac );
 				

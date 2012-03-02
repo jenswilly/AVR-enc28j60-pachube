@@ -16,7 +16,7 @@
 DEVICE     = atmega328p
 CLOCK      = 8000000
 PROGRAMMER = -c avrispmkII -P usb
-OBJECTS    = main.o
+OBJECTS    = main.o DS1620.o
 FUSES      = -U lfuse:w:0x62:m -U hfuse:w:0xdf:m -U efuse:w:0xff:m	# Fuses for ATmega168/ATtiny25: Int 8/8 MHz RC osc.(slow startup); no BOD; SPI enabled
 
 
@@ -27,7 +27,8 @@ FUSES      = -U lfuse:w:0x62:m -U hfuse:w:0xdf:m -U efuse:w:0xff:m	# Fuses for A
 
 .SUFFIXES: .c .o .h .S .s
 AVRDUDE = avrdude $(PROGRAMMER) -p $(DEVICE)
-COMPILE = avr-gcc -g -mmcu=$(DEVICE) -Wall -W -Os -mcall-prologues -fshort-enums  -Wl,-u,vfprintf -lprintf_min -DF_CPU=$(CLOCK)
+#COMPILE = avr-gcc -g -mmcu=$(DEVICE) -Wall -W -Os -mcall-prologues -fshort-enums  -Wl,-u,vfprintf -lprintf_min -DF_CPU=$(CLOCK)
+COMPILE = avr-gcc -g -mmcu=$(DEVICE) -Wall -W -Os -mcall-prologues -fshort-enums  -Wl,-u,vfprintf -lm -DF_CPU=$(CLOCK)
 
 ##################
 # Symbolic targets

@@ -9,6 +9,8 @@
 /* Begin PBXFileReference section */
 		4759B69414FEC6330074C992 /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		4765F50514FD8BCE00915C56 /* pachube_key.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = pachube_key.h; path = ../pachube_key.h; sourceTree = "<group>"; };
+		47675EB315003BD70041D2A5 /* DS1620.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = DS1620.c; sourceTree = "<group>"; };
+		47675EB415003BD70041D2A5 /* DS1620.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DS1620.h; sourceTree = "<group>"; };
 		4774891414F0568700529684 /* ip_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ip_config.h; sourceTree = "<group>"; };
 		4774891814F0568700529684 /* dhcp_client.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dhcp_client.c; sourceTree = "<group>"; };
 		4774891914F0568700529684 /* dhcp_client.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dhcp_client.h; sourceTree = "<group>"; };
@@ -30,10 +32,12 @@
 		477488F614F0540900529684 = {
 			isa = PBXGroup;
 			children = (
-				4759B69414FEC6330074C992 /* main.c */,
 				4774892814F0581700529684 /* Makefile */,
+				4759B69414FEC6330074C992 /* main.c */,
 				4774891414F0568700529684 /* ip_config.h */,
 				4765F50514FD8BCE00915C56 /* pachube_key.h */,
+				47675EB415003BD70041D2A5 /* DS1620.h */,
+				47675EB315003BD70041D2A5 /* DS1620.c */,
 				4774891714F0568700529684 /* tuxgraphics */,
 			);
 			sourceTree = "<group>";

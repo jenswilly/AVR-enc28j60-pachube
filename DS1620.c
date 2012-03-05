@@ -26,6 +26,7 @@ void init1620()
 	DS1620_DDR |= (1<< DS1620_PIN_DQ) | (1<< DS1620_PIN_RST) | (1<< DS1620_PIN_CLK);
 	
 	writeCommandTo1620( DS1620_CMD_WRITECONF, 0x02 );			// CPU mode; continous conversion
+	writeByteTo1620( DS1620_CMD_STARTCONV );					// Start conversion
 }
 
 void shiftOutByte( uint8_t val )
@@ -94,7 +95,7 @@ double readTempFrom1620()
 	for( i=0; i<9; i++ )										// read 9 bits
 	{
 		DS1620_PORT &= ~(1<< DS1620_PIN_CLK );					// CLK low
-		_delay_us( 1 );											// 1 µsec delay to allow the DS1620 to set the value before we read it
+		_delay_us( 2 );											// 1 µsec delay to allow the DS1620 to set the value before we read it
 		if( DS1620_PIN & (1<< DS1620_PIN_DQ ))					// read bit
 			raw |= (1 << i);									// add value
 		DS1620_PORT |= (1<< DS1620_PIN_CLK );					// CLK high
@@ -105,4 +106,33 @@ double readTempFrom1620()
 	DS1620_DDR |= (1<< DS1620_PIN_DQ );							// DQ back to output mode
 	
 	return (double)(raw/(double)2);								// divide by 2 and return as double
+}
+
+int readTempFrom1620_int()
+{
+	int i;
+	
+	DS1620_PORT &= ~(1<< DS1620_PIN_CLK );					// CLK low
+	DS1620_PORT |= (1<< DS1620_PIN_RST );						// start comm - RST high
+	
+	shiftOutByte( DS1620_CMD_READTEMP );						// send register select
+	
+	DS1620_DDR &= ~(1<< DS1620_PIN_DQ );						// configure for input
+	
+	int raw = 0;
+	
+	for( i=0; i<9; i++ )										// read 9 bits
+	{
+		DS1620_PORT &= ~(1<< DS1620_PIN_CLK );					// CLK low
+		_delay_us( 2 );											// 1 µsec delay to allow the DS1620 to set the value before we read it
+		if( DS1620_PIN & (1<< DS1620_PIN_DQ ))					// read bit
+			raw |= (1 << i);									// add value
+		DS1620_PORT |= (1<< DS1620_PIN_CLK );					// CLK high
+	}
+	
+	DS1620_PORT &= ~(1<< DS1620_PIN_RST );						// end comm
+	
+	DS1620_DDR |= (1<< DS1620_PIN_DQ );							// DQ back to output mode
+	
+	return raw;
 }

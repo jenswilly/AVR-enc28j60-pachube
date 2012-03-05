@@ -28,7 +28,7 @@ FUSES      = -U lfuse:w:0x62:m -U hfuse:w:0xdf:m -U efuse:w:0xff:m	# Fuses for A
 .SUFFIXES: .c .o .h .S .s
 AVRDUDE = avrdude $(PROGRAMMER) -p $(DEVICE)
 #COMPILE = avr-gcc -g -mmcu=$(DEVICE) -Wall -W -Os -mcall-prologues -fshort-enums  -Wl,-u,vfprintf -lprintf_min -DF_CPU=$(CLOCK)
-COMPILE = avr-gcc -g -mmcu=$(DEVICE) -Wall -W -Os -mcall-prologues -fshort-enums  -Wl,-u,vfprintf -lm -DF_CPU=$(CLOCK)
+COMPILE = avr-gcc -g -mmcu=$(DEVICE) -Wall -W -Os -mcall-prologues -fshort-enums  -Wl,-u,vfprintf -lprintf_flt -lm -DF_CPU=$(CLOCK)
 
 ##################
 # Symbolic targets

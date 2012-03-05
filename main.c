@@ -72,6 +72,7 @@ static int8_t gw_arp_state=0;
  * The temperature is returned as °C * 1000.
  * Note that the temperature is *not* calibrated...
  */
+/*
 int readTemp()
 {
 	int temp;
@@ -81,6 +82,7 @@ int readTemp()
 	temp = ADC;						// Get ADC value and convert to temperature
 	return temp;
 }
+ */
 
 /* setup timer T2 as an interrupt generating time base.
 * You must call once sei() in the main program */
@@ -130,24 +132,22 @@ ISR( TIMER2_COMPA_vect )
 void ping_callback(uint8_t *ip)
 {
 	uint8_t i=0;
-	// trigger only first time in case we get many ping in a row:
-	if (start_web_client==0)
-	{
-		PORTB |= (1<< PB0);
-		_delay_ms( 200 );
-		PORTB &= ~(1<< PB0);
-		_delay_ms( 200 );
 
-		start_web_client=1;
-		// save IP from where the ping came:
-		while(i<4){
-			pingsrcip[i]=ip[i];
-			i++;
-		}
+	PORTB |= (1<< PB0);
+	_delay_ms( 200 );
+	PORTB &= ~(1<< PB0);
+	_delay_ms( 200 );
+	
+	start_web_client=1;
+
+	// save IP from where the ping came:
+	while(i<4){
+		pingsrcip[i]=ip[i];
+		i++;
 	}
 }
 
-// the __attribute__((unused)) is a gcc compiler directive to avoid warnings about unsed variables.
+/* Callback for HTTP client request */
 void browserresult_callback(uint8_t webstatuscode,uint16_t datapos __attribute__((unused)), uint16_t len __attribute__((unused))){
     int i;
 	for( i=0; i<webstatuscode; i++ )
@@ -169,14 +169,13 @@ void browserresult_callback(uint8_t webstatuscode,uint16_t datapos __attribute__
 }
 
 // the __attribute__((unused)) is a gcc compiler directive to avoid warnings about unsed variables.
+/* Calback for ARP request */
 void arpresolver_result_callback(uint8_t *ip __attribute__((unused)),uint8_t transaction_number,uint8_t *mac)
 {
-	uint8_t i=0;
+	// Was it the gateway ARP request? (It probably is since we're not performing any other ARP requests)
 	if (transaction_number==TRANS_NUM_GWMAC)
-	{
-		// copy mac address over:
-		while(i<6){gwmac[i]=mac[i];i++;}
-	}
+		// Yes: copy MAC address to ARP "table"
+		memcpy( gwmac, mac, 6 );
 }
 
 int main(void)
@@ -184,18 +183,23 @@ int main(void)
 	uint16_t dat_p,plen;
 	char postdata[30]; 
 	
+	/*
 	// Set up analog to digital converter
 	// By default set to use AREF and single-conversion mode
 	ADCSRA |= (1<< ADPS2) | (1<< ADPS1);				// Set prescaler 64 for 125 kHz @ 8 MHz system clock	
 	ADCSRA |= (1<< ADEN);								// Enable ADC
 	ADMUX = (1<< REFS1) | (1<< REFS0) | (1<< MUX3);		// Select internal 1.1V voltage reference and ADMUX channel 8 for internal temperature sensor
+	*/
+	
+	// Initialize DS1620
+	init1620();
 	
 	/* Initialize enc28j60 */
 	enc28j60Init( mymac );
 //	enc28j60clkout( 2 );	// change clkout from 6.25MHz to 12.5MHz
 	_delay_loop_1( 0 );		// 60us
 	
-	init_cnt2();
+	init_cnt2();	// Initialize second counter
 	sei();
 	
 	/* Magjack leds configuration, see enc28j60 datasheet, page 11 */
@@ -205,11 +209,11 @@ int main(void)
 	// enc28j60PhyWrite(PHLCON,0b0000 0100 0111 01 10);
 	enc28j60PhyWrite( PHLCON, 0x476 );
 	
-	DDRB |= (1<<DDB1) | (1<< PB0); // LED, enable PB1, LED as output
+	DDRB |= (1<<PB1) | (1<< PB0); // LED, enable PB1, LED as output
 
 	// Init IP interface
 //	init_udp_or_www_server(mymac,myip);
-//	www_server_port(MYWWWPORT);
+//	www_server_port(MYWWWPORT);	// (Not required for default port 80)
 	client_ifconfig( myip, NULL );	// Set IP (not specifying netmask, which is only used for the route_via_gw() function anyway)
 	init_mac( mymac );				// Initialize MAC
 
@@ -221,9 +225,11 @@ int main(void)
 		// handle ping and wait for a tcp packet
 		plen = enc28j60PacketReceive( BUFFER_SIZE, buf );
 		dat_p = packetloop_arp_icmp_tcp( buf,plen );
-		if(plen==0)
+		
+		// Is there any data for us?
+		if( plen==0 )
 		{
-			// we are idle here trigger arp and dns stuff here
+			// No: perform ARP and DNS lookups now
 			if( gw_arp_state == 0 )
 			{
 				// Lookup MAC address of the gateway
@@ -312,7 +318,7 @@ int main(void)
 			}
 			
 			// If enough time has passed in "waiting" mode, go to "ready to send"
-			if( sec >= 10 && start_web_client == 3 )
+			if( sec >= 120 && start_web_client == 3 )
 			{
 				start_web_client = 1;		// "Ready to send"
 			}
